@@ -86,7 +86,7 @@ router.get('/audio/:id', async(req, res, next) => {
             })
         }
 
-        if(new Date(data.expires_at) < new Data()){
+        if(new Date(data.expires_at) < new Date()){
             return res.status(410).json({
                 message: 'Audio link expired'
             })
