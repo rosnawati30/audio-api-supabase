@@ -23,7 +23,7 @@ exports.uploadAudioController = async (req, res, next) => {
 exports.getAudioController = async (req, res, next) => {
     try{
         const {id} = req.params
-        const audio = await getAudio(id)
+        const audio = await getAudioService(id)
 
         if(!audio){
             return res.status(400).json({
