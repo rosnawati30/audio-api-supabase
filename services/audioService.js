@@ -20,7 +20,7 @@ exports.uploadAudioService = async (file) => {
     expiresAt.setHours(expiresAt.getHours() + 24)
 
     //insert metadata file audio to 'audios' table in supabase 
-    const {error: dbError} = await supabase
+    const {data: insertedData, error: dbError} = await supabase
         .from('audios')
         .insert([
             {
@@ -29,6 +29,8 @@ exports.uploadAudioService = async (file) => {
                 expires_at: expiresAt
             }
         ])
+        .select()
+        .single()
 
     if(dbError){
         throw dbError
@@ -44,7 +46,10 @@ exports.uploadAudioService = async (file) => {
         throw signError
     }
 
-    return signedUrlData.signedUrl
+    return {
+        id: insertedData.id,
+        url: signedUrlData.signedUrl
+    }
 
 }
 
