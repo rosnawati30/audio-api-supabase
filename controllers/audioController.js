@@ -10,11 +10,7 @@ exports.uploadAudioController = async (req, res, next) => {
 
         const result = await uploadAudioService(req.file)
 
-        res.status(200).json({
-            message: 'Upload success',
-            id: result.id,
-            url: result.url
-        })
+        res.status(200).json(result)
     }
     catch(err){
         next(err)
