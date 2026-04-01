@@ -2,17 +2,21 @@ require('dotenv').config()
 
 const express = require('express')
 const multer = require('multer')
+const cors = require('cors')
 const audioRoute = require('./routers/audioRoute')
 
 const app = express()
 const port = process.env.PORT || 3000
 
-app.get('/', (req, res) => {
-    res.send('Welcome to voice message')
-})
+//cors
+app.use(cors())
 
 //upload audio router
 app.use('/api', audioRoute)
+
+app.get('/', (req, res) => {
+    res.send('Welcome to voice message')
+})
 
 //error handling for multer and global
 app.use((err, req, res, next) => {
